@@ -344,7 +344,6 @@ account.delete("/deleteUser", (req, res) => {
 account.get("/get", (req, res) => {
     User.find({}, {}, { sort: { '_id': -1 } }).exec().
         then((users) => {
-            console.log(users)
             res.send({ code: 200, users })
         }).catch((e) => {
             res.send({ e })
@@ -501,55 +500,53 @@ account.post("/suspand", (req, res) => {
 
 
 
-// account.post('/search', function (req, res, next) {
-//     let text = req.body.text
-//     // var searchById;
-//     let searchByName;
-//     let searchPhone;
+account.post('/search', function (req, res, next) {
+    let text = req.body.text
+
+    let searchByName;
+    let searchPhone;
+
+    if (Number(text) != NaN) {
+        searchPhone = text;
+        searchByName = ""
+    }
+    if (isNaN(text)) {
+        searchPhone = "";
+        searchByName = text
+    }
+    let regexPhone = '^' + searchPhone;
+    let regexUserName = '^' + searchByName;
+
+    let queryOptions = {
+        $and: [{
+            phone_number: {
+                '$regex': regexPhone,
+                '$options': 'i'
+            }
+        },
+        {
+            username: {
+                '$regex': regexUserName,
+                '$options': 'i'
+            }
+        }
+        ]
+    }
+
+    let promise = User.find(queryOptions);
+    promise.then(function (data) {
+        if (data) {
+            res.send({ code: 200, users: data })
+        } else {
+            res.send({ code: 200, message: "No data" })
+        }
+    });
+    promise.catch(function (error) {
+        return res.status(500).json(error);
+    });
 
 
-//     if (Number(text) != NaN) {
-//         searchPhone = text;
-//         searchByName = ""
-//     } else {
-//         searchPhone = "";
-//         searchByName = text
-//     }
-//     let regexPhone = '^' + searchPhone;
-//     let regexUserName = '^' + searchByName;
-
-//     let queryOptions = {
-
-//         $and: [{
-//             phone_number: {
-//                 '$regex': regexPhone,
-//                 '$options': 'i'
-//             }
-//         },
-//         {
-//             username: {
-//                 '$regex': regexUserName,
-//                 '$options': 'i'
-//             }
-//         }]
-//     }
-
-
-
-//     let promise = ProductModal.find(queryOptions);
-//     promise.then(function (data) {
-//         if (data) {
-//             res.send({ code: 200, products: data })
-//         } else {
-//             res.send({ code: 200, message: "No data" })
-//         }
-//     });
-//     promise.catch(function (error) {
-//         return res.status(500).json(error);
-//     });
-
-
-// });
+});
 
 
 
