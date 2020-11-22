@@ -21,6 +21,7 @@ const upload = require("./app/routes/Upload")
 const discount = require("./app/routes/Discount")
 const banckDetails = require("./app/routes/banckDetails")
 const facebookAuth = require("./app/routes/facebookAuth")
+const payment = require("./app/routes/Payment")
 // ===============================================
 // ===============================================
 // ===============================================
@@ -43,6 +44,7 @@ app.use("/images", upload);
 app.use("/discount", discount);
 app.use("/banck-details", banckDetails);
 app.use("/facebookauth", facebookAuth);
+app.use("/payment", payment);
 
 
 
