@@ -67,7 +67,6 @@ router.post("/get-user-pay", (req, res) => {
 
 
 
-
 router.post("/get", (req, res) => {
     Payment.find().exec().
         then((data) => {
