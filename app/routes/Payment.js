@@ -4,8 +4,6 @@ const OrderModel = require("../models/OrderModel")
 const User = require("../models/userModel");
 const Payment = require("../models/paymentModal");
 
-
-
 router.post("/add", (req, res) => {
     User.find({ username: req.body.customerName }).exec().
         then((user) => {
@@ -19,6 +17,7 @@ router.post("/add", (req, res) => {
                                 orderId: req.body.orderId,
                                 pay: req.body.pay,
                                 discretion: req.body.discretion,
+                                date:new Date().getTime()
                             });
                             payment.save().then(() => {
                                 res.send({
@@ -47,8 +46,6 @@ router.post("/add", (req, res) => {
         })
 })
 
-
-
 router.post("/get-user-pay", (req, res) => {
     Payment.find({ customerId: req.body.customerId }).exec().
         then((data) => {
@@ -65,10 +62,27 @@ router.post("/get-user-pay", (req, res) => {
 
 })
 
-
-
-router.post("/get", (req, res) => {
+router.get("/get", (req, res) => {
     Payment.find().exec().
+        then((data) => {
+            res.send({
+                data:data,
+                code: 200
+            })
+        }).catch(()=>{
+            res.send({
+                message: "Something want to wrong!",
+                code: 300
+            })
+        })
+
+})
+
+
+
+
+router.get("/del", (req, res) => {
+    Payment.remove().exec().
         then((data) => {
             res.send({
                 data:data,
