@@ -8,16 +8,16 @@ router.post("/add", (req, res) => {
     User.find({ username: req.body.customerName }).exec().
         then((user) => {
             if (user[0]) {
-                OrderModel.find({ order_id:req.body.orderId}).exec().
+                OrderModel.find({ order_id: req.body.orderId }).exec().
                     then((order) => {
                         if (order[0]) {
                             const payment = new Payment({
-                                customerId:user[0]._id,
+                                customerId: user[0]._id,
                                 customerName: req.body.customerName,
                                 orderId: req.body.orderId,
                                 pay: req.body.pay,
                                 discretion: req.body.discretion,
-                                date:new Date().getTime()
+                                date: new Date().getTime()
                             });
                             payment.save().then(() => {
                                 res.send({
@@ -50,10 +50,10 @@ router.post("/get-user-pay", (req, res) => {
     Payment.find({ customerId: req.body.customerId }).exec().
         then((data) => {
             res.send({
-                data:data,
+                data: data,
                 code: 200
             })
-        }).catch(()=>{
+        }).catch(() => {
             res.send({
                 message: "Something want to wrong!",
                 code: 300
@@ -66,10 +66,10 @@ router.get("/get", (req, res) => {
     Payment.find().exec().
         then((data) => {
             res.send({
-                data:data,
+                data: data,
                 code: 200
             })
-        }).catch(()=>{
+        }).catch(() => {
             res.send({
                 message: "Something want to wrong!",
                 code: 300
@@ -85,10 +85,10 @@ router.get("/del", (req, res) => {
     Payment.remove().exec().
         then((data) => {
             res.send({
-                data:data,
+                data: data,
                 code: 200
             })
-        }).catch(()=>{
+        }).catch(() => {
             res.send({
                 message: "Something want to wrong!",
                 code: 300

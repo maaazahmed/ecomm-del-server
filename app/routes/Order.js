@@ -6,7 +6,7 @@ const User = require("../models/userModel");
 router.post("/add", (req, res) => {
     OrderModel.find({}).sort({ _id: -1 }).limit(1).then((data) => {
         const { user_info, company_info, orders_info, status, userId, date, total, margin, refers } = req.body
-        const obj = { user_info, company_info, orders_info, status, userId, date, total, margin }
+        const obj = { user_info, company_info, orders_info, status, userId, date, total, margin, fcm }
         let orderID = "ORDER-01"
         if (data[0] && data[0].order_id) {
             let _split = (data[0].order_id).split("-")

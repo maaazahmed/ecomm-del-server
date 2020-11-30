@@ -10,7 +10,9 @@ const orderSchema = mongoose.Schema({
     userId: { type: String, required: true, },
     date: { type: String, required: true, },
     total: { type: String, required: true, },
-    margin: { type: String, required: true, }
+    margin: { type: String, required: true, },
+    fcm:{ type: String, required: true },
+
 });
 
 module.exports = mongoose.model("orders", orderSchema)
