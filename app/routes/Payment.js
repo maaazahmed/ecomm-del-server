@@ -17,12 +17,13 @@ router.post("/add", (req, res) => {
                                 orderId: req.body.orderId,
                                 pay: req.body.pay,
                                 discretion: req.body.discretion,
-                                date: new Date().getTime()
+                                date: new Date().getTime(),
                             });
                             payment.save().then(() => {
                                 res.send({
                                     message: "Payment placed",
-                                    code: 200
+                                    code: 200,
+                                    fcm:order[0].fcm
                                 });
                             }).catch(() => {
                                 res.send({
