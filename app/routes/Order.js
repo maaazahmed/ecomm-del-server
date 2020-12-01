@@ -4,8 +4,9 @@ const OrderModel = require("../models/OrderModel")
 const User = require("../models/userModel");
 
 router.post("/add", (req, res) => {
+    console.log("--")
     OrderModel.find({}).sort({ _id: -1 }).limit(1).then((data) => {
-        const { user_info, company_info, orders_info, status, userId, date, total, margin, refers } = req.body
+        const { user_info, company_info, orders_info, status, userId, date, total, margin, refers,fcm } = req.body
         const obj = { user_info, company_info, orders_info, status, userId, date, total, margin, fcm }
         let orderID = "ORDER-01"
         if (data[0] && data[0].order_id) {
@@ -58,6 +59,11 @@ router.post("/add", (req, res) => {
             res.status(500).json({
                 error: err
             });
+        });
+    }).catch((err) => {
+        console.log(err)
+        res.send({
+            error: err
         });
     });
 });
