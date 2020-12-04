@@ -51,7 +51,8 @@ account.post("/signup", (req, res) => {
                             commision: "0",
                             fbId: "null",
                             date: new Date().getTime(),
-                            status: true
+                            status: true,
+                            wishlist:[]
                         })
                         user.save().then((success) => {
                             res.send({
@@ -381,7 +382,8 @@ account.post("/add-commision", (req, res) => {
 
 
 account.post("/use-ref-code", (req, res) => {
-    User.find({ "my_ref_codes.ref_codes": req.body.ref_codes }, (err, result) => {
+    User.find({ "my_ref_codes.ref_codes": req.body.ref_codes }, 
+    (err, result) => {
         if (err) {
             res.send({
                 message: "Somthing wrong",

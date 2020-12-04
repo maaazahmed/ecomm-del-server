@@ -19,7 +19,8 @@ router.post("/add-fb-data", (req, res) => {
         used_ref_codes: [],
         commision: "0",
         date: new Date().getTime(),
-        status:true
+        status:true,
+        wishlist:[]
     }
 
 

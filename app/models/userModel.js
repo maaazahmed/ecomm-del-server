@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema({
     fbId: { type: String, required: true },
     date: { type: String, required: true },
     status: { type: Boolean, required: true },
+    wishlist:{ type: Object, required: true }
 
 })
 module.exports = mongoose.model("Users", userSchema)
