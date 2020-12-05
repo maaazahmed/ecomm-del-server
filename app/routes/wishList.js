@@ -20,6 +20,7 @@ router.post("/add", (req, res) => {
                             { $set: { "wishlist": wishlist } }, (error, success) => {
                                 res.send({
                                     code: 200,
+                                    message:"Add to fevorite",
                                     success
                                 })
                             })
@@ -29,7 +30,9 @@ router.post("/add", (req, res) => {
                             { $set: { "wishlist": X_filter } }, (error, success) => {
                                 res.send({
                                     code: 200,
-                                    success
+                                    message:"Remove from fevorite",
+                                    success,
+                                    
                                 })
                             })
                     }
@@ -38,13 +41,14 @@ router.post("/add", (req, res) => {
                         { $set: { "wishlist": [productId] } }, (error, success) => {
                             res.send({
                                 code: 200,
+                                message:"Add to fevorite",
                                 success
                             })
                         })
                 }
             } else {
                 res.send({
-                    code: 320,
+                    code: 300,
                 })
             }
         }).catch(() => {
