@@ -352,6 +352,15 @@ account.get("/get", (req, res) => {
 });
 
 
+account.post("/get-my-data", (req, res) => {
+    User.find({ _id: req.body._id }).exec().
+        then((users) => {
+            res.send({ code: 200, users })
+        }).catch((e) => {
+            res.send({ e })
+        });
+});
+
 
 
 
