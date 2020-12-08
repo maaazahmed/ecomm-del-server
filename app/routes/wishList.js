@@ -59,7 +59,7 @@ router.post("/add", (req, res) => {
 
 })
 
-router.get("/get", (req, res) => {
+router.post("/get", (req, res) => {
     ProductModal.find({ _id: { $in:req.body.productIds } }).exec()
         .then((data) => {
             res.send({
