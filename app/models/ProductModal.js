@@ -17,6 +17,7 @@ const productSchema = mongoose.Schema({
     deliveryCharges: { type: String, required: true, },
     showInProductList: { type: Boolean, required: true, },
     cost: { type: String, required: true, },
+    rating: { type: Object, required: false, },
 });
 
 module.exports = mongoose.model("products", productSchema);

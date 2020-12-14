@@ -20,7 +20,8 @@ router.post("/add", (req, res) => {
             product_imgs: product_imgs,
             deliveryCharges,
             showInProductList,
-            cost
+            cost,
+            rating: []
         }
 
         let orderID = "PRO-01"
@@ -250,6 +251,54 @@ router.post('/search-form-app', function (req, res) {
 
 
 
+
+router.post("/rating", (req, res) => {
+    let productId = req.body.productId
+    delete req.body.productId
+    ProductModal.find({ _id: productId }, (e, data) => {
+        if (data[0]) {
+            const productData = data[0];
+
+            if (productData.rating) {
+                ProductModal.update({ _id: productId },
+                    { $push: { rating: req.body } }, (error, success) => {
+                        if (error) {
+                            console.log(error)
+                            res.send({
+                                message: "failed !",
+                                error,
+                                code: 300
+                            })
+                        } else {
+                            console.log(productData)
+                            res.send({
+                                message: "Successfully added !",
+                                success,
+                                code: 200
+                            })
+                        }
+                    })
+            } else {
+                ProductModal.updateOne({ _id: productId }, { $set: { rating: [req.body] } }, (error, success) => {
+                    if (error) {
+                        res.send({
+                            message: "failed !",
+                            error,
+                            code: 300
+                        })
+                    } else {
+                        res.send({
+                            message: "Successfully added !",
+                            success,
+                            code: 200
+                        })
+                    }
+                })
+            }
+        }
+
+    })
+})
 
 
 module.exports = router
