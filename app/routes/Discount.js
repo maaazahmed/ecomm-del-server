@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const Discount = require("../models/DiscountModal")
+const ProductModal = require("../models/ProductModal")
 
 router.post("/add", (req, res) => {
     Discount.find().exec().then((data) => {
@@ -34,9 +35,20 @@ router.post("/add", (req, res) => {
     });
 });
 
+router.post("/add-by-category", (req, res) => {
+    const { suategory, discount } = req.body;
+    ProductModal.updateMany({ suategory }, { discount }).exec()
+        .then((data) => {
+            res.send({ data })
+        });
+});
 
-
-
+// router.post("/get-test", (req, res) => {
+//     ProductModal.find({ suategory: "Boys & Girls 2+ Years" }).exec()
+//         .then((data) => {
+//             res.send({ data })
+//         });
+// });
 
 router.get("/get", (req, res) => {
     Discount.find().exec().then((data) => {
@@ -51,9 +63,6 @@ router.get("/get", (req, res) => {
 
     });
 });
-
-
-
 
 router.delete("/delete", (req, res) => {
     Discount.deleteOne().then(({ }) => {

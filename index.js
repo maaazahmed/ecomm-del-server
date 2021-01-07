@@ -51,6 +51,4 @@ app.use("/firebase", notification);
 app.use("/wishList", wishList);
 
 
-
-
 app.listen(app.get("port"), () => console.log("Server is running on port 8000"))

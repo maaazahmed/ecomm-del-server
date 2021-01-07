@@ -21,7 +21,8 @@ router.post("/add", (req, res) => {
             deliveryCharges,
             showInProductList,
             cost,
-            rating: []
+            rating: [],
+            discount:"0"
         }
 
         let orderID = "PRO-01"
@@ -106,14 +107,6 @@ router.post('/search', function (req, res, next) {
             }
         }]
     }
-
-
-
-
-
-
-
-
 
 
     var promise = ProductModal.find(queryOptions);
